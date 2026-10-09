@@ -1,6 +1,7 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Op } from "sequelize";
 import { sequelize } from "../connection.js";
-export let userModel = sequelize.define("user",{
+
+export const userModel = sequelize.define("user",{
 name : 
 {
     type : DataTypes.STRING(255),
@@ -9,11 +10,12 @@ name :
 email :
 {
     type : DataTypes.STRING(255),
-    unique : true 
+    unique : true ,
+    validate : { isEmail: true}
 },
 password : 
 {
- type : DataTypes.STRING(255)
+ type : DataTypes.STRING(255),
 },
 role : 
 {
@@ -23,7 +25,18 @@ role :
 }
 
 },{
-    timestamps : true
+    timestamps : true , 
+    paranoid : true ,
+    validate : {
+        checkPasswordLength(){
+            if (this.password.length < 6)
+            {
+                throw new Error("Password's length must be > 6",{cause : 401})
+            }
+        }
+
+    }
+
 })
 
 

@@ -1,6 +1,10 @@
 import {Sequelize} from 'sequelize'
 import { DB } from '../config/configservece.js';
 
+
+
+
+
 export let sequelize = new Sequelize(DB.name,DB.user,DB.pass,{
     host : DB.host,
     dialect : DB.dialect,
@@ -13,13 +17,13 @@ export let sequelize = new Sequelize(DB.name,DB.user,DB.pass,{
 export const connect = async()=>{
     try {
         await sequelize.authenticate();
-        await sequelize.sync();
+        await sequelize.sync({alter: false});
         console.log(`DB Connected`);
         
     } catch (err) {
         console.log(`DB connection failed`);
-        
         console.error(err);
         process.exit(1)
     }
 }
+

@@ -1,7 +1,7 @@
 import { DataTypes , Model } from "sequelize";
 import { sequelize } from "../connection.js";
 
- class postModel extends Model{}
+ export class postModel extends Model{}
  postModel.init({
 title : 
 {
@@ -16,10 +16,12 @@ content :
 
  },{
     timestamps : true ,
+    paranoid : true ,
+    tableName: "posts" ,
     sequelize
  })
  
- export default postModel;
+
 
 //  title (VARCHAR)
 //  content(TEXT)
