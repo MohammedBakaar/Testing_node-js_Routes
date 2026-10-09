@@ -1,5 +1,5 @@
 import {Router} from "express";
-import { createcomment } from "./comment.service.js";
+import * as cs from "./comment.service.js";
 
 export let commentRouter = Router(); 
 
