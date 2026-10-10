@@ -34,5 +34,42 @@ commentRouter.post("/find-or-create",async(req,res,next)=>{
     resultt
    })
 })
+commentRouter.get("/search",async(req,res,next)=>{
+  let word = req.query.word
+    console.log(word);
+    
+  let {count,rows} = await cs.findCommentWord(word);
 
+   res.status(count ? 200 : 404).json({
+    message : `comment ${count ? `` : `not `}found` ,
+    rows
+   })
+})
 
+commentRouter.get("/search",async(req,res,next)=>{
+  let word = req.query.word
+    console.log(word);
+    
+  let {count,rows} = await cs.findCommentWord(word);
+
+   res.status(count ? 200 : 404).json({
+    message : `comment ${count ? `` : `not `}found` ,
+    rows
+   })
+})
+commentRouter.get("/newest/:postId",async(req,res,next)=>{    
+  let result = await cs.findRecentComment(req.params.postId);
+
+   res.status(result.length ? 200: 404).json({
+    message : `comments ${result.length ? `` : `not `} found` ,
+    result
+   })
+})
+commentRouter.get("/details/:Id",async(req,res,next)=>{    
+  let result = await cs.findCommentDetailed(req.params.Id);
+
+   res.status(result ? 200: 404).json({
+    message : `comment ${result ? `` : `not `}found` ,
+    result
+   })
+})
