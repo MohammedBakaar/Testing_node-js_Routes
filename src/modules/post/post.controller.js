@@ -31,8 +31,6 @@ postRouter.get('/comment-count', async(req,res,next)=>{
   let result = await  ps.getPostCount()
   for(let i=0 ;i<result.length;i++){
     result[i].dataValues.comments = result[i].dataValues.comments.length
-    console.log(result[i]);
-    
   }
    return res.status(200).json({
     message : "posts fetched" ,
